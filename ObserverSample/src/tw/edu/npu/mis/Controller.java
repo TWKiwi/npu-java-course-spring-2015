@@ -35,7 +35,10 @@ import java.util.Scanner;
 public class Controller {
 
     private final Model mModel;
-
+    /**
+     * Controller Class Contrutor
+     * @param model 
+     */
     public Controller(Model model) {
         mModel = model;
     }

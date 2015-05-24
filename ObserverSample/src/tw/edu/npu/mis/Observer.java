@@ -30,5 +30,8 @@ package tw.edu.npu.mis;
  * @author STP
  */
 public interface Observer {
+    /**
+     * Add view into arraylist by calling Window.schduleRedraw() function 
+     */
     void update();
 }

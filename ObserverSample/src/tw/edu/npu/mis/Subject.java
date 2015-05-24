@@ -33,13 +33,24 @@ import java.util.ArrayList;
  */
 public class Subject {
     ArrayList<Observer> arraylist = new ArrayList();
-    void add(Observer o){
+    /**
+     * Add View to ArrayList
+     * @param o 
+     */
+    void Add(Observer o){
         arraylist.add(o);
     }
-    void remove(Observer o){
+    /**
+     * Remove View form ArrayList
+     * @param o 
+     */
+    void reMove(Observer o){
         arraylist.remove(o);
     }
-    void Notify(){
+    /**
+     * Notify each view to update
+     */
+    void notifycation(){
         for(Observer o : arraylist){
             o.update();
         }

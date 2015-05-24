@@ -36,11 +36,17 @@ public class View implements Observer,Showable {
     private final Window mWindow;
     private final Model mModel;
 
+    /**
+     * View Class Construtor
+     * @param name
+     * @param window
+     * @param model 
+     */
     public View(String name, Window window, Model model) {
         mName = name;
         mWindow = window;
         mModel = model;
-        mModel.add(this);
+        mModel.Add(this);
     }
 
     /**
@@ -59,7 +65,7 @@ public class View implements Observer,Showable {
 
     @Override
     public void update() {
-       
+        invalidate();
     }
 
 }

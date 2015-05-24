@@ -44,7 +44,7 @@ public class AlternativeView implements Observer,Showable {
         mName = name;
         mWindow = window;
         mModel = model;
-        mModel.add(this);
+        mModel.Add(this);
     }
 
     /**
