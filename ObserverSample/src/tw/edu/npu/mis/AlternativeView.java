@@ -50,7 +50,7 @@ public class AlternativeView implements Observer,Showable {
     /**
      * Invalidate the view, which indicates it needs to be redrawn later.
      */
-    public void invalidate() {
+    private void invalidate() {
         mWindow.schduleRedraw(this);
     }
 
