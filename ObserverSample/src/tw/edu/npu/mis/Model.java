@@ -33,8 +33,6 @@ package tw.edu.npu.mis;
 public class Model extends Subject {
 
     private String mData;
-
-    private String s = "Samael";
     
     /**
      * Get model content.
