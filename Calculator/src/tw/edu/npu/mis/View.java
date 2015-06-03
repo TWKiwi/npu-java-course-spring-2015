@@ -366,6 +366,7 @@ public class View extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-         jTextField1.setText(mCalculator.getDisplay());
+//        System.out.println("update");
+        jTextField1.setText(mCalculator.getDisplay());
     }
 }

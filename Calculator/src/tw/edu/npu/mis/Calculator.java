@@ -5,11 +5,18 @@
  */
 package tw.edu.npu.mis;
 
+import java.util.Observable;
+import java.util.Observer;
+
+
 /**
  * The model class of the calculator application.
  */
-public class Calculator {
-    
+public class Calculator extends Observable {
+
+    String Num = "";
+    Boolean isDot = false;
+
     /**
      * The available operators of the calculator.
      */
@@ -35,10 +42,19 @@ public class Calculator {
     
     public void appendDigit(int digit) {
         // TODO code application logic here
+        Num += digit;
+        setChanged();
+        notifyObservers();
+//        System.out.println(Num);
     }
     
     public void appendDot() {
         // TODO code application logic here
+        if (!isDot) Num += ".";
+        isDot = true;
+        setChanged();
+        notifyObservers();
+//        System.out.println(Num);
     }
     
     public void performOperation(Operator operator) {
@@ -47,14 +63,17 @@ public class Calculator {
     
     public String getDisplay() {
         // TODO code application logic here
-        return null;
+//        System.out.println("Display");
+        return Num;
     }
-
+   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new View().setVisible(true);
+//        System.out.println("main");
     }
 
 }
