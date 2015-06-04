@@ -140,7 +140,8 @@ public class Calculator extends Observable {
                     break; 
                 
             case PLUS_MINUS : 
-                    if(Num.length() != 0)Num = "-" + Num;
+                    if(Num.length() != 0 && Double.parseDouble(Num) > 0)Num = "-" + Num;
+                    else if(Num.length() != 0 && Double.parseDouble(Num) < 0)Num = Num.substring(1, Num.length());
                     setChanged();
                     notifyObservers();
                     break;    
