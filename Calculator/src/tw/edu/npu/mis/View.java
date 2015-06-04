@@ -58,7 +58,8 @@ public class View extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField1.setText("0");
 
         jButton1.setText("+-");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

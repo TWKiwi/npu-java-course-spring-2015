@@ -44,7 +44,10 @@ public class Calculator extends Observable {
     
     public void appendDigit(int digit) {
         // TODO code application logic here
-        Num += digit;
+        if(Num.equals("0")) Num = String.valueOf(digit);
+        else{
+            Num += digit;
+        }
         setChanged();
         notifyObservers();
 //        System.out.println(Num);
@@ -63,14 +66,14 @@ public class Calculator extends Observable {
         // TODO code application logic here
         switch(operator){
             case CLEAR : 
-                    Num = "";
+                    Num = "0";
                     HoldNum = "";
                     setChanged();
                     notifyObservers();
                     break;
                 
             case CLEAR_ENTRY : 
-                if(Num.length() != 0) Num = "";
+                if(Num.length() != 0) Num = "0";
                     setChanged();
                     notifyObservers();
                     break;
