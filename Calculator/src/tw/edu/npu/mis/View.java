@@ -7,6 +7,7 @@ package tw.edu.npu.mis;
 
 import java.util.Observable;
 import java.util.Observer;
+import tw.edu.npu.mis.Calculator.Operator;
 
 /**
  *
@@ -60,6 +61,11 @@ public class View extends javax.swing.JFrame implements Observer {
         jTextField1.setText("jTextField1");
 
         jButton1.setText("+-");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("0");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +82,11 @@ public class View extends javax.swing.JFrame implements Observer {
         });
 
         jButton4.setText("=");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("1");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +110,11 @@ public class View extends javax.swing.JFrame implements Observer {
         });
 
         jButton8.setText("+");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("4");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +138,11 @@ public class View extends javax.swing.JFrame implements Observer {
         });
 
         jButton12.setText("-");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setText("7");
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -145,14 +166,39 @@ public class View extends javax.swing.JFrame implements Observer {
         });
 
         jButton16.setText("*");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jButton17.setText("CE");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setText("C");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
 
         jButton19.setText("←");
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
 
         jButton20.setText("/");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -302,6 +348,51 @@ public class View extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
         mCalculator.appendDot();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.CLEAR);
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.PLUS);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.MINUS);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.TIMES);
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.OVER);
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.EQUAL);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+       mCalculator.performOperation(Operator.CLEAR_ENTRY);
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        // TODO add your handling code here:
+       mCalculator.performOperation(Operator.BACKSPACE);        
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        mCalculator.performOperation(Operator.PLUS_MINUS);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -15,7 +15,9 @@ import java.util.Observer;
 public class Calculator extends Observable {
 
     String Num = "";
+    String HoldNum = "";
     Boolean isDot = false;
+    String Operation = "";
 
     /**
      * The available operators of the calculator.
@@ -59,6 +61,90 @@ public class Calculator extends Observable {
     
     public void performOperation(Operator operator) {
         // TODO code application logic here
+        switch(operator){
+            case CLEAR : 
+                    Num = "";
+                    HoldNum = "";
+                    setChanged();
+                    notifyObservers();
+                    break;
+                
+            case CLEAR_ENTRY : 
+                if(Num.length() != 0) Num = "";
+                    setChanged();
+                    notifyObservers();
+                    break;
+
+            case PLUS :
+//                    System.out.println("PLUS");
+                    if(Num.length() != 0)HoldNum = Num;
+                    Num = "";
+                    Operation = "+";
+                    setChanged();
+                    notifyObservers();
+                    break;
+                
+            case MINUS : 
+                    if(Num.length() != 0)HoldNum = Num;
+                    Num = "";
+                    Operation = "-";
+                    
+                    setChanged();
+                    notifyObservers();
+                    break;               
+
+            case TIMES : 
+                    if(Num.length() != 0)HoldNum = Num;
+                    Num = "";
+                    Operation = "*";
+                    setChanged();
+                    notifyObservers();
+                    break;
+
+            case OVER : 
+                    if(Num.length() != 0)HoldNum = Num;
+                    Num = "";
+                    Operation = "/";
+                    setChanged();
+                    notifyObservers();
+                    break;
+                
+            case BACKSPACE : 
+                    if(Num.length() > 0)Num = Num.replace(Num, Num.substring(0, Num.length()-1).toString());
+                    setChanged();
+                    notifyObservers();
+                    break; 
+                
+            case EQUAL : 
+                    switch(Operation){
+                        case "+" : 
+                            if(Num.length() == 0) Num = "0.0";
+                            Num = String.valueOf(Double.parseDouble(HoldNum) + Double.parseDouble(Num));
+                            break;
+                        case "-" : 
+                            if(Num.length() == 0) Num = "0.0";
+                            Num = String.valueOf(Double.parseDouble(HoldNum) - Double.parseDouble(Num));
+                            break;
+                        case "*" :
+                            if(Num.length() == 0) Num = "0.0";
+                            Num = String.valueOf(Double.parseDouble(HoldNum) * Double.parseDouble(Num));
+                            break;
+                        case "/" : 
+                            if(Num.length() == 0) Num = "1.0";
+                            Num = String.valueOf(Double.parseDouble(HoldNum) / Double.parseDouble(Num));
+                            break;
+                    }
+                    
+                    setChanged();
+                    notifyObservers();
+                    break; 
+                
+            case PLUS_MINUS : 
+                    if(Num.length() != 0)Num = "-" + Num;
+                    setChanged();
+                    notifyObservers();
+                    break;    
+            }
     }
     
     public String getDisplay() {
