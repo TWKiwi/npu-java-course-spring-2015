@@ -14,7 +14,7 @@ import java.util.Observer;
  */
 public class Calculator extends Observable {
 
-    String Num = "";
+    String Num = "0";
     String HoldNum = "";
     Boolean isDot = false;
     String Operation = "";
@@ -57,9 +57,14 @@ public class Calculator extends Observable {
         // TODO code application logic here
         if (!isDot) Num += ".";
         isDot = true;
+//        try{
+//            if (isInteger(Double.parseDouble(Num))) Num += ".";  
+//        }catch(NumberFormatException e){
+//            System.out.println("別腦殘沒小數狀態下狂點Dot好嗎？");
+//        }
         setChanged();
         notifyObservers();
-//        System.out.println(Num);
+        System.out.println(Num);
     }
     
     public void performOperation(Operator operator) {
@@ -83,16 +88,17 @@ public class Calculator extends Observable {
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "+";
-                    setChanged();
+                    isDot = false;
+//                    setChanged();
                     notifyObservers();
                     break;
                 
             case MINUS : 
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
-                    Operation = "-";
-                    
-                    setChanged();
+                    Operation = "-";    
+                    isDot = false;
+//                    setChanged();
                     notifyObservers();
                     break;               
 
@@ -100,7 +106,8 @@ public class Calculator extends Observable {
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "*";
-                    setChanged();
+                    isDot = false;
+//                    setChanged();
                     notifyObservers();
                     break;
 
@@ -108,12 +115,14 @@ public class Calculator extends Observable {
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "/";
-                    setChanged();
+                    isDot = false;
+//                    setChanged();
                     notifyObservers();
                     break;
                 
             case BACKSPACE : 
-                    if(Num.length() > 0)Num = Num.replace(Num, Num.substring(0, Num.length()-1).toString());
+                    if(Num.length() > 0)Num = Num.replace(Num, Num.substring(0, Num.length()-1));
+                    if(Num.length() == 0) Num = "0";
                     setChanged();
                     notifyObservers();
                     break; 
@@ -123,21 +132,25 @@ public class Calculator extends Observable {
                         case "+" : 
                             if(Num.length() == 0) Num = "0.0";
                             Num = String.valueOf(Double.parseDouble(HoldNum) + Double.parseDouble(Num));
+                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
                             break;
                         case "-" : 
                             if(Num.length() == 0) Num = "0.0";
                             Num = String.valueOf(Double.parseDouble(HoldNum) - Double.parseDouble(Num));
+                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
                             break;
                         case "*" :
                             if(Num.length() == 0) Num = "0.0";
                             Num = String.valueOf(Double.parseDouble(HoldNum) * Double.parseDouble(Num));
+                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
                             break;
                         case "/" : 
                             if(Num.length() == 0) Num = "1.0";
                             Num = String.valueOf(Double.parseDouble(HoldNum) / Double.parseDouble(Num));
+                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
                             break;
                     }
-                    
+                    isDot = false;
                     setChanged();
                     notifyObservers();
                     break; 
@@ -155,6 +168,10 @@ public class Calculator extends Observable {
         // TODO code application logic here
 //        System.out.println("Display");
         return Num;
+    }
+    
+    public static boolean isInteger(double d) {
+        return d % 1.0 == 0;
     }
    
     /**
