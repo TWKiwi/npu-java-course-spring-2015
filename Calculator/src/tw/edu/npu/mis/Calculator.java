@@ -5,6 +5,8 @@
  */
 package tw.edu.npu.mis;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,6 +20,7 @@ public class Calculator extends Observable {
     String HoldNum = "";
     Boolean isDot = false;
     String Operation = "";
+    List<Double> Memory_Number = new ArrayList<Double>();
 
     /**
      * The available operators of the calculator.
@@ -50,7 +53,6 @@ public class Calculator extends Observable {
         }
         setChanged();
         notifyObservers();
-//        System.out.println(Num);
     }
     
     public void appendDot() {
@@ -64,7 +66,6 @@ public class Calculator extends Observable {
 //        }
         setChanged();
         notifyObservers();
-//        System.out.println(Num);
     }
     
     public void performOperation(Operator operator) {
@@ -73,12 +74,14 @@ public class Calculator extends Observable {
             case CLEAR : 
                     Num = "0";
                     HoldNum = "";
+                    isDot = false;
                     setChanged();
                     notifyObservers();
                     break;
                 
             case CLEAR_ENTRY : 
-                if(Num.length() != 0) Num = "0";
+                    if(Num.length() != 0) Num = "0";
+                    isDot = false;
                     setChanged();
                     notifyObservers();
                     break;
@@ -179,12 +182,31 @@ public class Calculator extends Observable {
                     setChanged();
                     notifyObservers();
                     break;
+                
+            case MEM_PLUS :
+                    Memory_Number.add(Math.abs(Double.parseDouble(Num)));
+                    Num = "";
+                    break;
+                
+            case MEM_MINUS :
+                    Memory_Number.add(Math.abs(Double.parseDouble(Num)) * -1);
+                    Num = "";
+                    break;
+                                
+            case MEM_RECALL :
+                    for (Double d : Memory_Number){
+                        Num = String.valueOf(Double.parseDouble(Num) + d); 
+                    }
+                    if(Num.length() == 0) Num = "0.0";
+                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    setChanged();
+                    notifyObservers();
+                    break;
             }
     }
     
     public String getDisplay() {
         // TODO code application logic here
-//        System.out.println("Display");
         return Num;
     }
     
@@ -198,7 +220,6 @@ public class Calculator extends Observable {
     public static void main(String[] args) {
         // TODO code application logic here
         new View().setVisible(true);
-//        System.out.println("main");
     }
 
 }
