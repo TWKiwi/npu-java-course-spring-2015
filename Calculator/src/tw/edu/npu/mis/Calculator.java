@@ -64,7 +64,7 @@ public class Calculator extends Observable {
 //        }
         setChanged();
         notifyObservers();
-        System.out.println(Num);
+//        System.out.println(Num);
     }
     
     public void performOperation(Operator operator) {
@@ -84,40 +84,35 @@ public class Calculator extends Observable {
                     break;
 
             case PLUS :
-//                    System.out.println("PLUS");
+                    performOperation(Operator.EQUAL);
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "+";
                     isDot = false;
-//                    setChanged();
-                    notifyObservers();
                     break;
                 
             case MINUS : 
+                    performOperation(Operator.EQUAL);
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "-";    
                     isDot = false;
-//                    setChanged();
-                    notifyObservers();
                     break;               
 
             case TIMES : 
+                    performOperation(Operator.EQUAL);
                     if(Num.length() != 0)HoldNum = Num;
                     Num = "";
                     Operation = "*";
                     isDot = false;
-//                    setChanged();
-                    notifyObservers();
                     break;
 
             case OVER : 
-                    if(Num.length() != 0)HoldNum = Num;
+                    performOperation(Operator.EQUAL);
+                    if(Num.length() != 0)HoldNum = Num;                    
                     Num = "";
                     Operation = "/";
                     isDot = false;
-//                    setChanged();
-                    notifyObservers();
                     break;
                 
             case BACKSPACE : 
@@ -150,7 +145,6 @@ public class Calculator extends Observable {
                             if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
                             break;
                     }
-                    isDot = false;
                     setChanged();
                     notifyObservers();
                     break; 
@@ -160,7 +154,31 @@ public class Calculator extends Observable {
                     else if(Num.length() != 0 && Double.parseDouble(Num) < 0)Num = Num.substring(1, Num.length());
                     setChanged();
                     notifyObservers();
-                    break;    
+                    break;  
+                
+            case RECIPROCAL :
+                    if(Num.length() == 0) Num = "0.0";
+                    Num = String.valueOf(1.0 / Double.parseDouble(Num));
+                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    setChanged();
+                    notifyObservers();
+                    break;
+                
+            case PERCENT :
+                    if(Num.length() == 0) Num = "0.0";
+                    Num = String.valueOf(Double.parseDouble(Num) / 100);
+                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    setChanged();
+                    notifyObservers();
+                    break;
+                
+            case SQRT :
+                    if(Num.length() == 0) Num = "0.0";
+                    Num = String.valueOf(Math.sqrt(Double.parseDouble(Num)));
+                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    setChanged();
+                    notifyObservers();
+                    break;
             }
     }
     
