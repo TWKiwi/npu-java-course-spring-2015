@@ -16,8 +16,8 @@ import java.util.Observer;
  */
 public class Calculator extends Observable {
 
-    String mNumber = "0";//存數字的地方...
-    String mHoldNum = "";//存數字的地方...
+    String mNumber = "0";//當前的運算結果
+    String mHoldNum = "";//存放數字的地方
     String mOperation = "";//計算用，判斷現在是要加減乘除哪一個
     List<Double> mMemory_Number = new ArrayList<Double>();//擺放M+M-的記憶數字
 
@@ -44,7 +44,7 @@ public class Calculator extends Observable {
         MEM_RECALL   // MR
     }
     /**
-     * 這裏做數字的輸入，由View呼叫這方法，並給予參數，同時呼叫父類別去通知View實作Observer的update();
+     * 這裏做數字的輸入，由View呼叫這方法，並給予參數，然後呼叫父類別方法去通知View所實作的Observer的update();
      * @param digit 輸入的數字
      */
     public void appendDigit(int digit) {
@@ -57,21 +57,18 @@ public class Calculator extends Observable {
         notifyObservers();
     }
     /**
-     * 
+     * 非小數就允許加點點，然後呼叫父類別方法去通知View所實作Observer的update();
      */
     public void appendDot() {
         // TODO code application logic here
-        if (Double.parseDouble(mNumber) % 1 == 0) mNumber += ".";
- 
-//        try{
-//            if (isInteger(Double.parseDouble(Num))) Num += ".";  
-//        }catch(NumberFormatException e){
-//            System.out.println("別腦殘沒小數狀態下狂點Dot好嗎？");
-//        }
+        if (Double.parseDouble(mNumber) % 1 == 0) mNumber += "."; 
         setChanged();
         notifyObservers();
     }
-    
+    /**
+     * 所有運算方法加減乘除brabrabrabra...
+     * @param operator 列舉的內容值，判斷當下要做什麼事
+     */
     public void performOperation(Operator operator) {
         // TODO code application logic here
         switch(operator){
@@ -233,12 +230,19 @@ public class Calculator extends Observable {
                     break;
             }
     }
-    
+    /**
+     * 回傳當前的運算結果
+     * @return 運算結果
+     */
     public String getDisplay() {
         // TODO code application logic here
         return mNumber;
     }
-    
+    /**
+     * 回傳是否為整數或小數
+     * @param d 輸入要檢測得值
+     * @return 回傳布林值
+     */
     public static boolean isInteger(double d) {
         return d % 1.0 == 0;
     }

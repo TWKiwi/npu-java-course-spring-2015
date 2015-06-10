@@ -10,7 +10,7 @@ import java.util.Observer;
 import tw.edu.npu.mis.Calculator.Operator;
 
 /**
- *
+ * 計算機畫面
  * @author STP
  */
 public class View extends javax.swing.JFrame implements Observer {
@@ -19,6 +19,7 @@ public class View extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form View
+     * 將本View加入Observer的某神秘泛型清單裡(看不懂Vector.java在寫啥)
      */
     public View() {
         initComponents();
@@ -598,10 +599,8 @@ public class View extends javax.swing.JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
 
 
-
     @Override
     public void update(Observable o, Object arg) {
-//        System.out.println("update");
         jTextField1.setText(mCalculator.getDisplay());
     }
 }
