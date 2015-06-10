@@ -16,11 +16,10 @@ import java.util.Observer;
  */
 public class Calculator extends Observable {
 
-    String Num = "0";
-    String HoldNum = "";
-    Boolean isDot = false;
-    String Operation = "";
-    List<Double> Memory_Number = new ArrayList<Double>();
+    String mNumber = "0";//存數字的地方...
+    String mHoldNum = "";//存數字的地方...
+    String mOperation = "";//計算用，判斷現在是要加減乘除哪一個
+    List<Double> mMemory_Number = new ArrayList<Double>();//擺放M+M-的記憶數字
 
     /**
      * The available operators of the calculator.
@@ -44,21 +43,26 @@ public class Calculator extends Observable {
         MEM_MINUS,   // M-
         MEM_RECALL   // MR
     }
-    
+    /**
+     * 這裏做數字的輸入，由View呼叫這方法，並給予參數，同時呼叫父類別去通知View實作Observer的update();
+     * @param digit 輸入的數字
+     */
     public void appendDigit(int digit) {
         // TODO code application logic here
-        if(Num.equals("0")) Num = String.valueOf(digit);
+        if(mNumber.equals("0")) mNumber = String.valueOf(digit);
         else{
-            Num += digit;
+            mNumber += digit;
         }
         setChanged();
         notifyObservers();
     }
-    
+    /**
+     * 
+     */
     public void appendDot() {
         // TODO code application logic here
-        if (!isDot) Num += ".";
-        isDot = true;
+        if (Double.parseDouble(mNumber) % 1 == 0) mNumber += ".";
+ 
 //        try{
 //            if (isInteger(Double.parseDouble(Num))) Num += ".";  
 //        }catch(NumberFormatException e){
@@ -72,85 +76,80 @@ public class Calculator extends Observable {
         // TODO code application logic here
         switch(operator){
             case CLEAR : 
-                    Num = "0";
-                    HoldNum = "";
-                    isDot = false;
+                    mNumber = "0";
+                    mHoldNum = "";
                     setChanged();
                     notifyObservers();
                     break;
                 
             case CLEAR_ENTRY : 
-                    if(Num.length() != 0) Num = "0";
-                    Num = "0";
-                    isDot = false;
+                    if(mNumber.length() != 0) mNumber = "0";
+                    mNumber = "0";
                     setChanged();
                     notifyObservers();
                     break;
 
             case PLUS :
                     performOperation(Operator.EQUAL);
-                    if(Num.length() != 0)HoldNum = Num;
-                    Num = "";
-                    Operation = "+";
-                    isDot = false;
+                    if(mNumber.length() != 0)mHoldNum = mNumber;
+                    mNumber = "";
+                    mOperation = "+";
                     break;
                 
             case MINUS : 
                     performOperation(Operator.EQUAL);
-                    if(Num.length() != 0)HoldNum = Num;
-                    Num = "";
-                    Operation = "-";    
-                    isDot = false;
+                    if(mNumber.length() != 0)mHoldNum = mNumber;
+                    mNumber = "";
+                    mOperation = "-";    
                     break;               
 
             case TIMES : 
                     performOperation(Operator.EQUAL);
-                    if(Num.length() != 0)HoldNum = Num;
-                    Num = "";
-                    Operation = "*";
-                    isDot = false;
+                    if(mNumber.length() != 0)mHoldNum = mNumber;
+                    mNumber = "";
+                    mOperation = "*";
+
                     break;
 
             case OVER : 
                     performOperation(Operator.EQUAL);
-                    if(Num.length() != 0)HoldNum = Num;                    
-                    Num = "";
-                    Operation = "/";
-                    isDot = false;
+                    if(mNumber.length() != 0)mHoldNum = mNumber;                    
+                    mNumber = "";
+                    mOperation = "/";
                     break;
                 
             case BACKSPACE : 
-                    if(Num.length() > 0)Num = Num.replace(Num, Num.substring(0, Num.length()-1));
-                    if(Num.length() == 0) Num = "0";
+                    if(mNumber.length() > 0)mNumber = mNumber.replace(mNumber, mNumber.substring(0, mNumber.length()-1));
+                    if(mNumber.length() == 0) mNumber = "0";
                     setChanged();
                     notifyObservers();
                     break; 
                 
             case EQUAL : 
-                    switch(Operation){
+                    switch(mOperation){
                         case "+" : 
-                            if(Num.length() == 0) Num = "0.0";
-                            if(HoldNum.length() == 0) HoldNum = "0.0";
-                            Num = String.valueOf(Double.parseDouble(HoldNum) + Double.parseDouble(Num));
-                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                            if(mNumber.length() == 0) mNumber = "0.0";
+                            if(mHoldNum.length() == 0) mHoldNum = "0.0";
+                            mNumber = String.valueOf(Double.parseDouble(mHoldNum) + Double.parseDouble(mNumber));
+                            if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                             break;
                         case "-" : 
-                            if(Num.length() == 0) Num = "0.0";
-                            if(HoldNum.length() == 0) HoldNum = "0.0";
-                            Num = String.valueOf(Double.parseDouble(HoldNum) - Double.parseDouble(Num));
-                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                            if(mNumber.length() == 0) mNumber = "0.0";
+                            if(mHoldNum.length() == 0) mHoldNum = "0.0";
+                            mNumber = String.valueOf(Double.parseDouble(mHoldNum) - Double.parseDouble(mNumber));
+                            if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                             break;
                         case "*" :
-                            if(Num.length() == 0) Num = "0.0";
-                            if(HoldNum.length() == 0) HoldNum = "0.0";
-                            Num = String.valueOf(Double.parseDouble(HoldNum) * Double.parseDouble(Num));
-                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                            if(mNumber.length() == 0) mNumber = "0.0";
+                            if(mHoldNum.length() == 0) mHoldNum = "0.0";
+                            mNumber = String.valueOf(Double.parseDouble(mHoldNum) * Double.parseDouble(mNumber));
+                            if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                             break;
                         case "/" : 
-                            if(Num.length() == 0) Num = "1.0";
-                            if(HoldNum.length() == 0) HoldNum = "0.0";
-                            Num = String.valueOf(Double.parseDouble(HoldNum) / Double.parseDouble(Num));
-                            if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                            if(mNumber.length() == 0) mNumber = "1.0";
+                            if(mHoldNum.length() == 0) mHoldNum = "0.0";
+                            mNumber = String.valueOf(Double.parseDouble(mHoldNum) / Double.parseDouble(mNumber));
+                            if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                             break;
                     }
                     setChanged();
@@ -158,90 +157,86 @@ public class Calculator extends Observable {
                     break; 
                 
             case PLUS_MINUS : 
-                    if(Num.length() != 0 && Double.parseDouble(Num) > 0)Num = "-" + Num;
-                    else if(Num.length() != 0 && Double.parseDouble(Num) < 0)Num = Num.substring(1, Num.length());
+                    if(mNumber.length() != 0 && Double.parseDouble(mNumber) > 0)mNumber = "-" + mNumber;
+                    else if(mNumber.length() != 0 && Double.parseDouble(mNumber) < 0)mNumber = mNumber.substring(1, mNumber.length());
                     setChanged();
                     notifyObservers();
                     break;  
                 
             case RECIPROCAL :
-                    if(Num.length() == 0) Num = "0.0";
-                    Num = String.valueOf(1.0 / Double.parseDouble(Num));
-                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    if(mNumber.length() == 0) mNumber = "0.0";
+                    mNumber = String.valueOf(1.0 / Double.parseDouble(mNumber));
+                    if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                     setChanged();
                     notifyObservers();
                     break;
                 
             case PERCENT :
-                    if(Num.length() == 0) Num = "0.0";
-                    Num = String.valueOf(Double.parseDouble(Num) / 100);
-                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    if(mNumber.length() == 0) mNumber = "0.0";
+                    mNumber = String.valueOf(Double.parseDouble(mNumber) / 100);
+                    if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                     setChanged();
                     notifyObservers();
                     break;
                 
             case SQRT :
-                    if(Num.length() == 0) Num = "0.0";
-                    Num = String.valueOf(Math.sqrt(Double.parseDouble(Num)));
-                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    if(mNumber.length() == 0) mNumber = "0.0";
+                    mNumber = String.valueOf(Math.sqrt(Double.parseDouble(mNumber)));
+                    if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                     setChanged();
                     notifyObservers();
                     break;
                 
             case MEM_PLUS :
                     performOperation(Operator.EQUAL);
-                    if(Num.length() == 0) return;
-                    Memory_Number.add(Math.abs(Double.parseDouble(Num)));
-                    Num = "";
-                    Operation = "";
-                    isDot = false;
-                    for (Double d : Memory_Number){
+                    if(mNumber.length() == 0) return;
+                    mMemory_Number.add(Math.abs(Double.parseDouble(mNumber)));
+                    mNumber = "";
+                    mOperation = "";
+                    for (Double d : mMemory_Number){
                         System.out.println(d);
                     }
                     break;
                 
             case MEM_MINUS :
                     performOperation(Operator.EQUAL);
-                    if(Num.length() == 0) return;
-                    Memory_Number.add(Math.abs(Double.parseDouble(Num)) * -1);
-                    Num = "";
-                    Operation = "";
-                    isDot = false;
-                    for (Double d : Memory_Number){
+                    if(mNumber.length() == 0) return;
+                    mMemory_Number.add(Math.abs(Double.parseDouble(mNumber)) * -1);
+                    mNumber = "";
+                    mOperation = "";
+                    for (Double d : mMemory_Number){
                         System.out.println(d);
                     }
                     break;
                                 
             case MEM_RECALL :
-                    if(Num.length() == 0) Num = "0.0";
-                    for (Double d : Memory_Number){
-                        Num = String.valueOf(Double.parseDouble(Num) + d); 
+                    if(mNumber.length() == 0) mNumber = "0.0";
+                    for (Double d : mMemory_Number){
+                        mNumber = String.valueOf(Double.parseDouble(mNumber) + d); 
                     }
-                    if(isInteger(Double.parseDouble(Num))) Num = String.valueOf((int)Double.parseDouble(Num));
+                    if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
                     setChanged();
                     notifyObservers();
                     break;
                 
             case MEM_CLEAR :
-                    Memory_Number.clear();
-                    Num = "0";
-                    isDot = false;
+                    mMemory_Number.clear();
+                    mNumber = "0";
                     setChanged();
                     notifyObservers();
                     break;
                 
             case MEM_SET :
-                    Memory_Number.clear();
-                    isDot = false;
-                    if(Num.length() != 0 && Double.parseDouble(Num) > 0)performOperation(Operator.MEM_PLUS);
-                    else if(Num.length() != 0 && Double.parseDouble(Num) < 0)performOperation(Operator.MEM_MINUS);
+                    mMemory_Number.clear();
+                    if(mNumber.length() != 0 && Double.parseDouble(mNumber) > 0)performOperation(Operator.MEM_PLUS);
+                    else if(mNumber.length() != 0 && Double.parseDouble(mNumber) < 0)performOperation(Operator.MEM_MINUS);
                     break;
             }
     }
     
     public String getDisplay() {
         // TODO code application logic here
-        return Num;
+        return mNumber;
     }
     
     public static boolean isInteger(double d) {
