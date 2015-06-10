@@ -189,6 +189,7 @@ public class Calculator extends Observable {
                 
             case MEM_PLUS :
                     performOperation(Operator.EQUAL);
+                    if(Num.length() == 0) return;
                     Memory_Number.add(Math.abs(Double.parseDouble(Num)));
                     Num = "";
                     Operation = "";
@@ -200,6 +201,7 @@ public class Calculator extends Observable {
                 
             case MEM_MINUS :
                     performOperation(Operator.EQUAL);
+                    if(Num.length() == 0) return;
                     Memory_Number.add(Math.abs(Double.parseDouble(Num)) * -1);
                     Num = "";
                     Operation = "";
