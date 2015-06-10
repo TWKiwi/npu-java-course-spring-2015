@@ -17,9 +17,9 @@ import java.util.Observer;
 public class Calculator extends Observable {
 
     String mNumber = "0";//當前的運算結果
-    String mHoldNum = "";//存放數字的地方
+    String mHoldNum = "";//存數字的地方
     String mOperation = "";//計算用，判斷現在是要加減乘除哪一個
-    List<Double> mMemory_Number = new ArrayList<Double>();//擺放M+M-的記憶數字
+    List<Double> mMemoryNumber = new ArrayList<Double>();//擺放M+M-的記憶數字
 
     /**
      * The available operators of the calculator.
@@ -48,7 +48,6 @@ public class Calculator extends Observable {
      * @param digit 輸入的數字
      */
     public void appendDigit(int digit) {
-        // TODO code application logic here
         if(mNumber.equals("0")) mNumber = String.valueOf(digit);
         else{
             mNumber += digit;
@@ -60,7 +59,6 @@ public class Calculator extends Observable {
      * 非小數就允許加點點，然後呼叫父類別方法去通知View所實作Observer的update();
      */
     public void appendDot() {
-        // TODO code application logic here
         if (Double.parseDouble(mNumber) % 1 == 0) mNumber += "."; 
         setChanged();
         notifyObservers();
@@ -70,7 +68,6 @@ public class Calculator extends Observable {
      * @param operator 列舉的內容值，判斷當下要做什麼事
      */
     public void performOperation(Operator operator) {
-        // TODO code application logic here
         switch(operator){
             case CLEAR : 
                     mNumber = "0";
@@ -187,10 +184,10 @@ public class Calculator extends Observable {
             case MEM_PLUS :
                     performOperation(Operator.EQUAL);
                     if(mNumber.length() == 0) return;
-                    mMemory_Number.add(Math.abs(Double.parseDouble(mNumber)));
+                    mMemoryNumber.add(Math.abs(Double.parseDouble(mNumber)));
                     mNumber = "";
                     mOperation = "";
-                    for (Double d : mMemory_Number){
+                    for (Double d : mMemoryNumber){
                         System.out.println(d);
                     }
                     break;
@@ -198,17 +195,17 @@ public class Calculator extends Observable {
             case MEM_MINUS :
                     performOperation(Operator.EQUAL);
                     if(mNumber.length() == 0) return;
-                    mMemory_Number.add(Math.abs(Double.parseDouble(mNumber)) * -1);
+                    mMemoryNumber.add(Math.abs(Double.parseDouble(mNumber)) * -1);
                     mNumber = "";
                     mOperation = "";
-                    for (Double d : mMemory_Number){
+                    for (Double d : mMemoryNumber){
                         System.out.println(d);
                     }
                     break;
                                 
             case MEM_RECALL :
                     if(mNumber.length() == 0) mNumber = "0.0";
-                    for (Double d : mMemory_Number){
+                    for (Double d : mMemoryNumber){
                         mNumber = String.valueOf(Double.parseDouble(mNumber) + d); 
                     }
                     if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
@@ -217,14 +214,14 @@ public class Calculator extends Observable {
                     break;
                 
             case MEM_CLEAR :
-                    mMemory_Number.clear();
+                    mMemoryNumber.clear();
                     mNumber = "0";
                     setChanged();
                     notifyObservers();
                     break;
                 
             case MEM_SET :
-                    mMemory_Number.clear();
+                    mMemoryNumber.clear();
                     if(mNumber.length() != 0 && Double.parseDouble(mNumber) > 0)performOperation(Operator.MEM_PLUS);
                     else if(mNumber.length() != 0 && Double.parseDouble(mNumber) < 0)performOperation(Operator.MEM_MINUS);
                     break;
@@ -235,7 +232,6 @@ public class Calculator extends Observable {
      * @return 運算結果
      */
     public String getDisplay() {
-        // TODO code application logic here
         return mNumber;
     }
     /**
@@ -251,7 +247,6 @@ public class Calculator extends Observable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         new View().setVisible(true);
     }
 
