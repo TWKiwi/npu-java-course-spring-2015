@@ -81,6 +81,7 @@ public class Calculator extends Observable {
                 
             case CLEAR_ENTRY : 
                     if(Num.length() != 0) Num = "0";
+                    Num = "0";
                     isDot = false;
                     setChanged();
                     notifyObservers();
@@ -223,18 +224,17 @@ public class Calculator extends Observable {
                 
             case MEM_CLEAR :
                     Memory_Number.clear();
-                    Num = "";
+                    Num = "0";
                     isDot = false;
                     setChanged();
                     notifyObservers();
                     break;
                 
             case MEM_SET :
-                    performOperation(Operator.CLEAR);
+                    Memory_Number.clear();
+                    isDot = false;
                     if(Num.length() != 0 && Double.parseDouble(Num) > 0)performOperation(Operator.MEM_PLUS);
                     else if(Num.length() != 0 && Double.parseDouble(Num) < 0)performOperation(Operator.MEM_MINUS);
-                    setChanged();
-                    notifyObservers();
                     break;
             }
     }
