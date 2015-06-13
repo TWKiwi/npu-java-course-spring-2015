@@ -126,24 +126,28 @@ public class Calculator extends Observable {
                             if(mHoldNum.length() == 0) mHoldNum = "0.0";
                             mNumber = String.valueOf(Double.parseDouble(mHoldNum) + Double.parseDouble(mNumber));
                             if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
+                            mHoldNum = "0";
                             break;
                         case "-" : 
                             if(mNumber.length() == 0) mNumber = "0.0";
                             if(mHoldNum.length() == 0) mHoldNum = "0.0";
                             mNumber = String.valueOf(Double.parseDouble(mHoldNum) - Double.parseDouble(mNumber));
                             if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
+                            mHoldNum = "0";
                             break;
                         case "*" :
                             if(mNumber.length() == 0) mNumber = "0.0";
                             if(mHoldNum.length() == 0) mHoldNum = "0.0";
                             mNumber = String.valueOf(Double.parseDouble(mHoldNum) * Double.parseDouble(mNumber));
                             if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
+                            mHoldNum = "0";
                             break;
                         case "/" : 
                             if(mNumber.length() == 0) mNumber = "1.0";
                             if(mHoldNum.length() == 0) mHoldNum = "0.0";
                             mNumber = String.valueOf(Double.parseDouble(mHoldNum) / Double.parseDouble(mNumber));
                             if(isInteger(Double.parseDouble(mNumber))) mNumber = String.valueOf((int)Double.parseDouble(mNumber));
+                            mHoldNum = "0";
                             break;
                     }
                     setChanged();
